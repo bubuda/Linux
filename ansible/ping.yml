@@ -1,0 +1,6 @@
+---
+- hosts: all
+  remote_user: root
+  tasks:
+    - name: nsd1906 ping test
+      ping: 

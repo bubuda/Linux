@@ -1,0 +1,29 @@
+---
+- hosts: db
+  tasks:
+    - name: adduser user "{{item.uname}}"
+      user:
+        name: "{{item.uname}}"
+        group: "{{item.grp}}"
+        password: "{{item.pwd|password_hash('sha512')}}"
+      with_items:
+        - 
+          uname: nb
+          grp: users
+          pwd: "123"
+        - 
+          uname: wk
+          grp: adm
+          pwd: banana
+        - 
+          uname: dd
+          grp: daemon
+          pwd: book
+        - 
+          uname: jj
+          grp: mysql
+          pwd: 123qqq...A
+        - 
+          uname: xx
+          grp: root
+          pwd: a

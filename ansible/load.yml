@@ -1,0 +1,13 @@
+---
+- hosts: web
+  tasks:
+    - name: show uptime info
+      shell: uptime |awk '{printf("%.2f",$(NF-2))}'
+      register: result
+    - name: shutdown web server
+      service:
+        name: httpd
+        state: stopped
+      when: result.stdout|float > 0.7
+    - name: show debug info
+      debug: var=result

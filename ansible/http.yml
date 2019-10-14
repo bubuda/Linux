@@ -1,0 +1,20 @@
+---
+- hosts: web
+  tasks:
+    - name: create cache directory
+      shell: mkdir /tmp/cache
+      ignore_errors: True
+    - copy:
+        src: httpd.conf
+        dest: /etc/httpd/conf/httpd.conf
+        owner: root
+        group: root
+        mode: 0644
+      tags: webconf
+      notify: 
+        - restart web
+  handlers:
+    - name: restart web
+      service:
+        name: httpd
+        state: restarted
